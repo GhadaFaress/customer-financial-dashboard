@@ -1,0 +1,71 @@
+slice_name: Current Balance
+description: null
+certified_by: null
+certification_details: null
+viz_type: handlebars
+params:
+  datasource: 22__table
+  viz_type: handlebars
+  slice_id: 47
+  matrixify_enable: false
+  matrixify_mode_columns: disabled
+  matrixify_dimension_selection_mode_columns: members
+  matrixify_dimension_columns:
+    dimension: ''
+    values: []
+  matrixify_topn_value_columns: 10
+  matrixify_all_sort_by_columns: a_to_z
+  matrixify_topn_order_columns: true
+  matrixify_show_column_headers: true
+  matrixify_fit_columns_dynamically: true
+  matrixify_mode_rows: disabled
+  matrixify_dimension_selection_mode_rows: members
+  matrixify_dimension_rows:
+    dimension: ''
+    values: []
+  matrixify_topn_value_rows: 10
+  matrixify_all_sort_by_rows: a_to_z
+  matrixify_topn_order_rows: true
+  matrixify_show_row_labels: true
+  matrixify_row_height: 300
+  matrixify_charts_per_row: 4
+  matrixify_cell_title_template: ''
+  query_mode: aggregate
+  groupby: []
+  metrics:
+  - balance_diff
+  - balance_prev
+  - balance_now
+  - balance_status
+  - as_of_date_txt
+  - balance_pct
+  - prev_date_txt
+  all_columns: []
+  percent_metrics: []
+  order_by_cols: []
+  row_limit: 10000
+  include_time: false
+  show_totals: false
+  adhoc_filters:
+  - clause: WHERE
+    comparator: No filter
+    expressionType: SIMPLE
+    operator: TEMPORAL_RANGE
+    subject: full_date
+  handlebarsTemplate: "{{#each data}}\r\n<div class=\"kpi-card\">\r\n  <div class=\"\
+    kpi-value\">EGP {{balance_now}}</div>\r\n  <div class=\"kpi-sub\">\r\n    Balance\
+    \ was <span class=\"kpi-prev\">EGP {{balance_prev}}</span> on the same day last\
+    \ month\r\n  </div>\r\n</div>\r\n\r\n{{/each}}"
+  extra_form_data: {}
+  dashboards:
+  - 6
+query_context: '{"datasource":{"id":22,"type":"table"},"force":false,"queries":[{"filters":[{"col":"full_date","op":"TEMPORAL_RANGE","val":"No
+  filter"}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[],"metrics":["balance_diff","balance_prev","balance_now","balance_status","as_of_date_txt","balance_pct","prev_date_txt"],"orderby":[["balance_diff",false]],"annotation_layers":[],"row_limit":10000,"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"22__table","viz_type":"handlebars","slice_id":47,"matrixify_enable":false,"matrixify_mode_columns":"disabled","matrixify_dimension_selection_mode_columns":"members","matrixify_dimension_columns":{"dimension":"","values":[]},"matrixify_topn_value_columns":10,"matrixify_all_sort_by_columns":"a_to_z","matrixify_topn_order_columns":true,"matrixify_show_column_headers":true,"matrixify_fit_columns_dynamically":true,"matrixify_mode_rows":"disabled","matrixify_dimension_selection_mode_rows":"members","matrixify_dimension_rows":{"dimension":"","values":[]},"matrixify_topn_value_rows":10,"matrixify_all_sort_by_rows":"a_to_z","matrixify_topn_order_rows":true,"matrixify_show_row_labels":true,"matrixify_row_height":300,"matrixify_charts_per_row":4,"matrixify_cell_title_template":"","query_mode":"aggregate","groupby":[],"metrics":["balance_diff","balance_prev","balance_now","balance_status","as_of_date_txt","balance_pct","prev_date_txt"],"all_columns":[],"percent_metrics":[],"order_by_cols":[],"row_limit":10000,"include_time":false,"show_totals":false,"adhoc_filters":[{"clause":"WHERE","comparator":"No
+  filter","expressionType":"SIMPLE","operator":"TEMPORAL_RANGE","subject":"full_date"}],"handlebarsTemplate":"{{#each
+  data}}\r\n<div class=\"kpi-card\">\r\n  <div class=\"kpi-value\">EGP {{balance_now}}</div>\r\n  <div
+  class=\"kpi-sub\">\r\n    Balance was <span class=\"kpi-prev\">EGP {{balance_prev}}</span>
+  on the same day last month\r\n  </div>\r\n</div>\r\n\r\n{{/each}}","extra_form_data":{},"dashboards":[6],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: d84e8ad6-8853-47a9-9a7c-c8052badca3f
+version: 1.0.0
+dataset_uuid: 34844023-1cd9-4da1-b5e8-56d6fce59e7f

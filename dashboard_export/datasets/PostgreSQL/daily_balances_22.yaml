@@ -1,0 +1,653 @@
+table_name: daily_balances
+main_dttm_col: full_date
+currency_code_column: null
+description: null
+default_endpoint: null
+offset: 0
+cache_timeout: null
+catalog: postgres
+schema: dv_reporting
+sql: ''
+params: null
+template_params: null
+filter_select_enabled: true
+fetch_values_predicate: null
+extra: null
+normalize_columns: false
+always_filter_main_dttm: false
+folders: null
+uuid: 34844023-1cd9-4da1-b5e8-56d6fce59e7f
+metrics:
+- metric_name: financial_message
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE\r\n-- Too early in the month to compare\r\nWHEN MAX(EXTRACT(DAY\
+    \ FROM as_of_date)) < 5 THEN\r\n'It is still early in the month. Check back in\
+    \ a few days to see how this month compares with last month.'\r\n-- Not enough\
+    \ history to compare\r\nWHEN COUNT(CASE WHEN mtd_period = 'previous' THEN 1 END)\
+    \ = 0 THEN\r\n'We do not have enough history yet to compare this month with last\
+    \ month. Check back soon.'\r\n-- 1. Just turned negative\r\nWHEN SUM(CASE WHEN\
+    \ mtd_period = 'current' THEN net_cash_flow ELSE 0 END) < 0\r\n AND SUM(CASE WHEN\
+    \ mtd_period = 'previous' THEN net_cash_flow ELSE 0 END) >= 0 THEN\r\n'More money\
+    \ went out than came in this month, which is a change from last month. If this\
+    \ was a one-time expense, there is nothing to worry about.'\r\n-- 2. Negative,\
+    \ and getting worse\r\nWHEN SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow\
+    \ ELSE 0 END) < 0\r\n AND SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow\
+    \ ELSE 0 END)\r\n   < SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow\
+    \ ELSE 0 END)\r\n     - 0.05 * GREATEST(SUM(CASE WHEN mtd_period = 'previous'\
+    \ THEN inflow ELSE 0 END),\r\n                       SUM(CASE WHEN mtd_period\
+    \ = 'previous' THEN outflow ELSE 0 END)) THEN\r\n'More money is going out than\
+    \ coming in, and the difference is bigger than last month. It may help to look\
+    \ at where most of your spending goes.'\r\n-- 3. Negative, but improving\r\nWHEN\
+    \ SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow ELSE 0 END) < 0\r\n\
+    \ AND SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow ELSE 0 END)\r\n\
+    \   > SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow ELSE 0 END)\r\n\
+    \     + 0.05 * GREATEST(SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE\
+    \ 0 END),\r\n                       SUM(CASE WHEN mtd_period = 'previous' THEN\
+    \ outflow ELSE 0 END)) THEN\r\n'More money is still going out than coming in,\
+    \ but the difference is smaller than last month. You are moving in the right direction.'\r\
+    \n-- 4. Negative, about the same\r\nWHEN SUM(CASE WHEN mtd_period = 'current'\
+    \ THEN net_cash_flow ELSE 0 END) < 0 THEN\r\n'More money is going out than coming\
+    \ in, about the same as last month. A small change in spending could make a difference\
+    \ over time.'\r\n-- 5. Stable\r\nWHEN ABS(SUM(CASE WHEN mtd_period = 'current'\
+    \ THEN net_cash_flow ELSE 0 END)\r\n       - SUM(CASE WHEN mtd_period = 'previous'\
+    \ THEN net_cash_flow ELSE 0 END))\r\n     <= 0.05 * GREATEST(SUM(CASE WHEN mtd_period\
+    \ = 'previous' THEN inflow ELSE 0 END),\r\n                        SUM(CASE WHEN\
+    \ mtd_period = 'previous' THEN outflow ELSE 0 END)) THEN\r\n'Your money in and\
+    \ out is about the same as last month. A steady month like this is a good time\
+    \ to start setting a little aside where it can grow.'\r\n-- 6. Better, spending\
+    \ is down\r\nWHEN SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow ELSE\
+    \ 0 END)\r\n   > SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow ELSE\
+    \ 0 END)\r\n AND SUM(CASE WHEN mtd_period = 'current' THEN outflow ELSE 0 END)\r\
+    \n   < SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END) THEN\r\n\
+    'You spent less this month, so more of your money is left over than last month.\
+    \ Nice work. Money you do not need right away can earn a return if you set it\
+    \ aside.'\r\n-- 7. Better, income grew\r\nWHEN SUM(CASE WHEN mtd_period = 'current'\
+    \ THEN net_cash_flow ELSE 0 END)\r\n   > SUM(CASE WHEN mtd_period = 'previous'\
+    \ THEN net_cash_flow ELSE 0 END) THEN\r\n'More money came in this month, so more\
+    \ is left over than last month. You may want to move part of it somewhere it can\
+    \ grow, instead of keeping it all in your current account.'\r\n-- 8. Worse, spending\
+    \ went up\r\nWHEN SUM(CASE WHEN mtd_period = 'current' THEN outflow ELSE 0 END)\r\
+    \n   > SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END) THEN\r\n\
+    'You spent more this month than last month, so less of your money is left over.\
+    \ Looking at your biggest expenses could show what changed.'\r\n-- 9. Worse, income\
+    \ is weaker\r\nELSE\r\n'Less money came in this month than last month, so less\
+    \ of your money is left over. It may be temporary. Planning your spending around\
+    \ it can help.'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: net_pct
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE WHEN SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow\
+    \ ELSE 0 END) <> 0 THEN\r\n  CASE WHEN SUM(CASE WHEN mtd_period = 'current'  THEN\
+    \ net_cash_flow ELSE 0 END)\r\n         >= SUM(CASE WHEN mtd_period = 'previous'\
+    \ THEN net_cash_flow ELSE 0 END)\r\n       THEN '+' ELSE '' END\r\n  || TO_CHAR(ROUND(100.0\
+    \ * (\r\n       SUM(CASE WHEN mtd_period = 'current'  THEN net_cash_flow ELSE\
+    \ 0 END)\r\n     - SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow ELSE\
+    \ 0 END))\r\n     / ABS(SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow\
+    \ ELSE 0 END))), 'FM999,990') || '%'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: out_pct
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE WHEN SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0\
+    \ END) > 0 THEN\r\n  CASE WHEN SUM(CASE WHEN mtd_period = 'current'  THEN outflow\
+    \ ELSE 0 END)\r\n         <= SUM(CASE WHEN mtd_period = 'previous' THEN outflow\
+    \ ELSE 0 END)\r\n       THEN '+' ELSE '' END\r\n  || TO_CHAR(ROUND(-100.0 * (\r\
+    \n       SUM(CASE WHEN mtd_period = 'current'  THEN outflow ELSE 0 END)\r\n  \
+    \   - SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END))\r\n    \
+    \ / SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END)), 'FM999,990')\
+    \ || '%'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: in_pct
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE WHEN SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0\
+    \ END) > 0 THEN\r\n  CASE WHEN SUM(CASE WHEN mtd_period = 'current'  THEN inflow\
+    \ ELSE 0 END)\r\n         >= SUM(CASE WHEN mtd_period = 'previous' THEN inflow\
+    \ ELSE 0 END)\r\n       THEN '+' ELSE '' END\r\n  || TO_CHAR(ROUND(100.0 * (\r\
+    \n       SUM(CASE WHEN mtd_period = 'current'  THEN inflow ELSE 0 END)\r\n   \
+    \  - SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0 END))\r\n     /\
+    \ SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0 END)), 'FM999,990')\
+    \ || '%'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: balance_pct
+  verbose_name: ''
+  metric_type: null
+  expression: "(CASE WHEN SUM(CASE WHEN balance_point = 'current'  THEN balance END)\r\
+    \n         - SUM(CASE WHEN balance_point = 'previous' THEN balance END) >= 0\r\
+    \n       THEN '+' ELSE '' END)\r\n|| TO_CHAR(ROUND(100.0 *\r\n     (SUM(CASE WHEN\
+    \ balance_point = 'current'  THEN balance END)\r\n    - SUM(CASE WHEN balance_point\
+    \ = 'previous' THEN balance END))\r\n     / NULLIF(ABS(SUM(CASE WHEN balance_point\
+    \ = 'previous' THEN balance END)), 0)), 'FM999990')\r\n|| '%'"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: balance_diff
+  verbose_name: ''
+  metric_type: null
+  expression: "(CASE WHEN SUM(CASE WHEN balance_point = 'current'  THEN balance END)\r\
+    \n         - SUM(CASE WHEN balance_point = 'previous' THEN balance END) >= 0\r\
+    \n       THEN '+' ELSE '' END)\r\n|| TO_CHAR(ROUND(SUM(CASE WHEN balance_point\
+    \ = 'current'  THEN balance END)\r\n                - SUM(CASE WHEN balance_point\
+    \ = 'previous' THEN balance END)), 'FM999,999,990')"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: out_diff
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE WHEN SUM(CASE WHEN mtd_period = 'current'  THEN outflow ELSE 0\
+    \ END)\r\n       <= SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0\
+    \ END)\r\n     THEN '+' ELSE '' END\r\n|| TO_CHAR(-1 * (\r\n     SUM(CASE WHEN\
+    \ mtd_period = 'current'  THEN outflow ELSE 0 END)\r\n   - SUM(CASE WHEN mtd_period\
+    \ = 'previous' THEN outflow ELSE 0 END)),\r\n   'FM999,999,990')"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: net_diff
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE WHEN SUM(CASE WHEN mtd_period = 'current'  THEN net_cash_flow\
+    \ ELSE 0 END)\r\n       >= SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow\
+    \ ELSE 0 END)\r\n     THEN '+' ELSE '' END\r\n|| TO_CHAR(\r\n     SUM(CASE WHEN\
+    \ mtd_period = 'current'  THEN net_cash_flow ELSE 0 END)\r\n   - SUM(CASE WHEN\
+    \ mtd_period = 'previous' THEN net_cash_flow ELSE 0 END),\r\n   'FM999,999,990')"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: in_diff
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE WHEN SUM(CASE WHEN mtd_period = 'current'  THEN inflow ELSE 0\
+    \ END)\r\n       >= SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0 END)\r\
+    \n     THEN '+' ELSE '' END\r\n|| TO_CHAR(\r\n     SUM(CASE WHEN mtd_period =\
+    \ 'current'  THEN inflow ELSE 0 END)\r\n   - SUM(CASE WHEN mtd_period = 'previous'\
+    \ THEN inflow ELSE 0 END),\r\n   'FM999,999,990')"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: net_status
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow\
+    \ ELSE 0 END)\r\n     > SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow\
+    \ ELSE 0 END) THEN 'good'\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN\
+    \ net_cash_flow ELSE 0 END)\r\n     < SUM(CASE WHEN mtd_period = 'previous' THEN\
+    \ net_cash_flow ELSE 0 END) THEN 'bad'\r\n  ELSE 'neutral'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: net_arrow
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow\
+    \ ELSE 0 END)\r\n     > SUM(CASE WHEN mtd_period = 'previous' THEN net_cash_flow\
+    \ ELSE 0 END) THEN '\u25B2'\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN\
+    \ net_cash_flow ELSE 0 END)\r\n     < SUM(CASE WHEN mtd_period = 'previous' THEN\
+    \ net_cash_flow ELSE 0 END) THEN '\u25BC'\r\n  ELSE '\u25AC'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: in_status
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN inflow ELSE\
+    \ 0 END)\r\n     > SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0 END)\
+    \ THEN 'good'\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN inflow ELSE\
+    \ 0 END)\r\n     < SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0 END)\
+    \ THEN 'bad'\r\n  ELSE 'neutral'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: out_status
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN outflow ELSE\
+    \ 0 END)\r\n     < SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END)\
+    \ THEN 'good'\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN outflow ELSE\
+    \ 0 END)\r\n     > SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END)\
+    \ THEN 'bad'\r\n  ELSE 'neutral'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: in_arrow
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN inflow ELSE\
+    \ 0 END)\r\n     > SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0 END)\
+    \ THEN '\u25B2'\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN inflow ELSE\
+    \ 0 END)\r\n     < SUM(CASE WHEN mtd_period = 'previous' THEN inflow ELSE 0 END)\
+    \ THEN '\u25BC'\r\n  ELSE '\u25AC'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: out_arrow
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN outflow ELSE\
+    \ 0 END)\r\n     < SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END)\
+    \ THEN '\u25B2'\r\n  WHEN SUM(CASE WHEN mtd_period = 'current' THEN outflow ELSE\
+    \ 0 END)\r\n     > SUM(CASE WHEN mtd_period = 'previous' THEN outflow ELSE 0 END)\
+    \ THEN '\u25BC'\r\n  ELSE '\u25AC'\r\nEND"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: balance_status
+  verbose_name: ''
+  metric_type: null
+  expression: "CASE WHEN SUM(CASE WHEN balance_point = 'current'  THEN balance END)\r\
+    \n       >= SUM(CASE WHEN balance_point = 'previous' THEN balance END)\r\n   \
+    \  THEN 'good' ELSE 'bad' END"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: compare_txt
+  verbose_name: ''
+  metric_type: null
+  expression: "'This month so far, Compared with ' || TO_CHAR(MIN(CASE WHEN mtd_period\
+    \ = 'previous' THEN full_date END), 'FMDD')\r\n|| '\u2013' || TO_CHAR(MAX(CASE\
+    \ WHEN mtd_period = 'previous' THEN full_date END), 'FMDD Mon')"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: date_range_txt
+  verbose_name: ''
+  metric_type: null
+  expression: "TO_CHAR(MIN(CASE WHEN mtd_period = 'previous' THEN full_date END),\
+    \ 'FMDD')\r\n|| '\u2013' || TO_CHAR(MAX(CASE WHEN mtd_period = 'previous' THEN\
+    \ full_date END), 'FMDD Mon')"
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: out_value
+  verbose_name: ''
+  metric_type: null
+  expression: TO_CHAR(-1 * SUM(CASE WHEN mtd_period = 'current' THEN outflow ELSE
+    0 END), 'FM999,999,990')
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: net_value
+  verbose_name: ''
+  metric_type: null
+  expression: TO_CHAR(SUM(CASE WHEN mtd_period = 'current' THEN net_cash_flow ELSE
+    0 END), 'FM999,999,990')
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: in_value
+  verbose_name: ''
+  metric_type: null
+  expression: TO_CHAR(SUM(CASE WHEN mtd_period = 'current' THEN inflow ELSE 0 END),
+    'FM999,999,990')
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: prev_date_txt
+  verbose_name: ''
+  metric_type: null
+  expression: TO_CHAR(MAX(CASE WHEN balance_point = 'previous' THEN full_date END),
+    'FMDD Mon')
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: balance_now
+  verbose_name: ''
+  metric_type: null
+  expression: TO_CHAR(ROUND(SUM(CASE WHEN balance_point = 'current' THEN balance END)),
+    'FM999,999,990')
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: balance_prev
+  verbose_name: ''
+  metric_type: null
+  expression: 'TO_CHAR(SUM(CASE WHEN balance_point = ''previous'' THEN balance END),
+    ''FM999,999,990'')
+
+    '
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: as_of_date_txt
+  verbose_name: ''
+  metric_type: null
+  expression: TO_CHAR(MAX(as_of_date), 'FMDD Mon YYYY')
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+- metric_name: count
+  verbose_name: COUNT(*)
+  metric_type: count
+  expression: COUNT(*)
+  description: null
+  d3format: null
+  currency: null
+  extra:
+    warning_markdown: ''
+  warning_text: null
+columns:
+- column_name: customer_name
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: VARCHAR(100)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: customer_id
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: VARCHAR(10)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: account_status
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: VARCHAR(20)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: account_type
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: VARCHAR(20)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: customer_segment
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: VARCHAR(20)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: currency
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: CHAR(3)
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: as_of_date
+  verbose_name: null
+  is_dttm: true
+  is_active: true
+  type: DATE
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: full_date
+  verbose_name: null
+  is_dttm: true
+  is_active: true
+  type: DATE
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: month_start
+  verbose_name: null
+  is_dttm: true
+  is_active: true
+  type: DATE
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: day_num
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: SMALLINT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: net_cash_flow
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: balance
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: inflow
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: outflow
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: NUMERIC
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: account_id
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: INTEGER
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: balance_point
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+- column_name: mtd_period
+  verbose_name: null
+  is_dttm: false
+  is_active: true
+  type: TEXT
+  advanced_data_type: null
+  groupby: true
+  filterable: true
+  expression: ''
+  description: null
+  python_date_format: null
+  datetime_format: null
+  extra:
+    warning_markdown: null
+version: 1.0.0
+database_uuid: 1f652fc2-ffe6-4589-b278-aaaf256ea207

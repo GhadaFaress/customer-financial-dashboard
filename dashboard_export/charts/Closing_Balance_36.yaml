@@ -1,0 +1,81 @@
+slice_name: Closing Balance
+description: null
+certified_by: null
+certification_details: null
+viz_type: handlebars
+params:
+  datasource: 19__table
+  viz_type: handlebars
+  slice_id: 36
+  matrixify_enable: false
+  matrixify_mode_columns: disabled
+  matrixify_dimension_selection_mode_columns: members
+  matrixify_dimension_columns:
+    dimension: ''
+    values: []
+  matrixify_topn_value_columns: 10
+  matrixify_all_sort_by_columns: a_to_z
+  matrixify_topn_order_columns: true
+  matrixify_show_column_headers: true
+  matrixify_fit_columns_dynamically: true
+  matrixify_mode_rows: disabled
+  matrixify_dimension_selection_mode_rows: members
+  matrixify_dimension_rows:
+    dimension: ''
+    values: []
+  matrixify_topn_value_rows: 10
+  matrixify_all_sort_by_rows: a_to_z
+  matrixify_topn_order_rows: true
+  matrixify_show_row_labels: true
+  matrixify_row_height: 300
+  matrixify_charts_per_row: 4
+  matrixify_cell_title_template: ''
+  query_mode: aggregate
+  groupby: []
+  metrics:
+  - closing_balance_value
+  - month_label
+  all_columns: []
+  percent_metrics: []
+  order_by_cols: []
+  row_limit: 10000
+  include_time: false
+  show_totals: false
+  adhoc_filters:
+  - clause: WHERE
+    comparator: No filter
+    datasourceWarning: false
+    expressionType: SIMPLE
+    filterOptionName: filter_08rz8stip063_sx1x69uablc
+    isExtra: false
+    isNew: false
+    operator: TEMPORAL_RANGE
+    sqlExpression: null
+    subject: month_start
+  - clause: WHERE
+    comparator:
+    - previous
+    datasourceWarning: false
+    expressionType: SIMPLE
+    filterOptionName: filter_4ywjfq6res4_tsgt6b5veah
+    isExtra: false
+    isNew: false
+    operator: IN
+    operatorId: IN
+    sqlExpression: null
+    subject: month_period
+  handlebarsTemplate: "{{#each data}}\r\n<div class=\"kpi-card\">\r\n  <div class=\"\
+    kpi-value\">EGP {{closing_balance_value}}</div>\r\n  <div class=\"kpi-sub\">As\
+    \ of {{month_label}}</div>\r\n</div>\r\n\r\n{{/each}}"
+  extra_form_data: {}
+  dashboards:
+  - 6
+query_context: '{"datasource":{"id":19,"type":"table"},"force":false,"queries":[{"filters":[{"col":"month_start","op":"TEMPORAL_RANGE","val":"No
+  filter"},{"col":"month_period","op":"IN","val":["previous"]}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[],"metrics":["closing_balance_value","month_label"],"orderby":[["closing_balance_value",false]],"annotation_layers":[],"row_limit":10000,"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"19__table","viz_type":"handlebars","slice_id":36,"matrixify_enable":false,"matrixify_mode_columns":"disabled","matrixify_dimension_selection_mode_columns":"members","matrixify_dimension_columns":{"dimension":"","values":[]},"matrixify_topn_value_columns":10,"matrixify_all_sort_by_columns":"a_to_z","matrixify_topn_order_columns":true,"matrixify_show_column_headers":true,"matrixify_fit_columns_dynamically":true,"matrixify_mode_rows":"disabled","matrixify_dimension_selection_mode_rows":"members","matrixify_dimension_rows":{"dimension":"","values":[]},"matrixify_topn_value_rows":10,"matrixify_all_sort_by_rows":"a_to_z","matrixify_topn_order_rows":true,"matrixify_show_row_labels":true,"matrixify_row_height":300,"matrixify_charts_per_row":4,"matrixify_cell_title_template":"","query_mode":"aggregate","groupby":[],"metrics":["closing_balance_value","month_label"],"all_columns":[],"percent_metrics":[],"order_by_cols":[],"row_limit":10000,"include_time":false,"show_totals":false,"adhoc_filters":[{"clause":"WHERE","comparator":"No
+  filter","datasourceWarning":false,"expressionType":"SIMPLE","filterOptionName":"filter_08rz8stip063_sx1x69uablc","isExtra":false,"isNew":false,"operator":"TEMPORAL_RANGE","sqlExpression":null,"subject":"month_start"},{"clause":"WHERE","comparator":["previous"],"datasourceWarning":false,"expressionType":"SIMPLE","filterOptionName":"filter_4ywjfq6res4_tsgt6b5veah","isExtra":false,"isNew":false,"operator":"IN","operatorId":"IN","sqlExpression":null,"subject":"month_period"}],"handlebarsTemplate":"{{#each
+  data}}\r\n<div class=\"kpi-card\">\r\n  <div class=\"kpi-value\">EGP {{closing_balance_value}}</div>\r\n  <div
+  class=\"kpi-sub\">As of {{month_label}}</div>\r\n</div>\r\n\r\n{{/each}}","extra_form_data":{},"dashboards":[6],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: e70a9dda-bb43-430f-adeb-dda9e4995c3d
+version: 1.0.0
+dataset_uuid: ffc5d715-0f4f-4145-83e1-4cb5dd466cf4

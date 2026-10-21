@@ -1,0 +1,93 @@
+slice_name: Cash out
+description: null
+certified_by: null
+certification_details: null
+viz_type: handlebars
+params:
+  datasource: 22__table
+  viz_type: handlebars
+  slice_id: 39
+  matrixify_enable: false
+  matrixify_mode_columns: disabled
+  matrixify_dimension_selection_mode_columns: members
+  matrixify_dimension_columns:
+    dimension: ''
+    values: []
+  matrixify_topn_value_columns: 10
+  matrixify_all_sort_by_columns: a_to_z
+  matrixify_topn_order_columns: true
+  matrixify_show_column_headers: true
+  matrixify_fit_columns_dynamically: true
+  matrixify_mode_rows: disabled
+  matrixify_dimension_selection_mode_rows: members
+  matrixify_dimension_rows:
+    dimension: ''
+    values: []
+  matrixify_topn_value_rows: 10
+  matrixify_all_sort_by_rows: a_to_z
+  matrixify_topn_order_rows: true
+  matrixify_show_row_labels: true
+  matrixify_row_height: 300
+  matrixify_charts_per_row: 4
+  matrixify_cell_title_template: ''
+  query_mode: aggregate
+  groupby: []
+  metrics:
+  - out_status
+  - out_arrow
+  - out_pct
+  - out_diff
+  - out_value
+  - date_range_txt
+  all_columns: []
+  percent_metrics: []
+  order_by_cols: []
+  order_desc: true
+  row_limit: 10000
+  include_time: false
+  show_totals: false
+  adhoc_filters:
+  - clause: WHERE
+    comparator: No filter
+    expressionType: SIMPLE
+    operator: TEMPORAL_RANGE
+    subject: full_date
+  handlebarsTemplate: "{{#each data}}\r\n<div class=\"kpi-card\">\r\n  <div class=\"\
+    kpi-value\">EGP {{out_value}}</div>\r\n  <div class=\"kpi-delta {{out_status}}\"\
+    >{{out_arrow}} {{out_diff}} ({{out_pct}})</div>\r\n  <div class=\"kpi-sub\">vs\
+    \ the same day last month</div>\r\n</div>\r\n\r\n{{/each}}"
+  styleTemplate: ".kpi-card {\r\n  background: #FFFFFF;\r\n  border: 1px solid #E2E8F0;\r\
+    \n  border-radius: 12px;\r\n  padding: 22px;\r\n  box-shadow: 0 2px 8px rgba(23,\
+    \ 43, 77, 0.05);\r\n  font-family: Arial, sans-serif;\r\n  box-sizing: border-box;\r\
+    \n  width: 100%;\r\n}\r\n\r\n.kpi-title {\r\n  color: #64748B;\r\n  font-size:\
+    \ 14px;\r\n  font-weight: 500;\r\n  margin-bottom: 12px;\r\n}\r\n\r\n.kpi-value\
+    \ {\r\n  color: #17365D;\r\n  font-size: 28px;\r\n  font-weight: 700;\r\n  line-height:\
+    \ 1.3;\r\n}\r\n\r\n.kpi-delta {\r\n  display: flex;\r\n  align-items: center;\r\
+    \n  gap: 6px;\r\n  margin-top: 12px;\r\n  font-size: 14px;\r\n  font-weight: 600;\r\
+    \n}\r\n\r\n.kpi-delta.good {\r\n  color: #167653;\r\n}\r\n\r\n.kpi-delta.bad {\r\
+    \n  color: #C0392B;\r\n}\r\n\r\n.kpi-delta.neutral {\r\n  color: #64748B;\r\n\
+    }\r\n\r\n.kpi-sub {\r\n  color: #8492A6;\r\n  font-size: 12px;\r\n  margin-top:\
+    \ 7px;\r\n}\r\n"
+  extra_form_data: {}
+  dashboards:
+  - 6
+query_context: '{"datasource":{"id":22,"type":"table"},"force":false,"queries":[{"filters":[{"col":"full_date","op":"TEMPORAL_RANGE","val":"No
+  filter"}],"extras":{"having":"","where":""},"applied_time_extras":{},"columns":[],"metrics":["out_status","out_arrow","out_pct","out_diff","out_value","date_range_txt"],"orderby":[["out_status",false]],"annotation_layers":[],"row_limit":10000,"series_limit":0,"group_others_when_limit_reached":false,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{}}],"form_data":{"datasource":"22__table","viz_type":"handlebars","slice_id":39,"matrixify_enable":false,"matrixify_mode_columns":"disabled","matrixify_dimension_selection_mode_columns":"members","matrixify_dimension_columns":{"dimension":"","values":[]},"matrixify_topn_value_columns":10,"matrixify_all_sort_by_columns":"a_to_z","matrixify_topn_order_columns":true,"matrixify_show_column_headers":true,"matrixify_fit_columns_dynamically":true,"matrixify_mode_rows":"disabled","matrixify_dimension_selection_mode_rows":"members","matrixify_dimension_rows":{"dimension":"","values":[]},"matrixify_topn_value_rows":10,"matrixify_all_sort_by_rows":"a_to_z","matrixify_topn_order_rows":true,"matrixify_show_row_labels":true,"matrixify_row_height":300,"matrixify_charts_per_row":4,"matrixify_cell_title_template":"","query_mode":"aggregate","groupby":[],"metrics":["out_status","out_arrow","out_pct","out_diff","out_value","date_range_txt"],"all_columns":[],"percent_metrics":[],"order_by_cols":[],"order_desc":true,"row_limit":10000,"include_time":false,"show_totals":false,"adhoc_filters":[{"clause":"WHERE","comparator":"No
+  filter","expressionType":"SIMPLE","operator":"TEMPORAL_RANGE","subject":"full_date"}],"handlebarsTemplate":"{{#each
+  data}}\r\n<div class=\"kpi-card\">\r\n  <div class=\"kpi-value\">EGP {{out_value}}</div>\r\n  <div
+  class=\"kpi-delta {{out_status}}\">{{out_arrow}} {{out_diff}} ({{out_pct}})</div>\r\n  <div
+  class=\"kpi-sub\">vs the same day last month</div>\r\n</div>\r\n\r\n{{/each}}","styleTemplate":".kpi-card
+  {\r\n  background: #FFFFFF;\r\n  border: 1px solid #E2E8F0;\r\n  border-radius:
+  12px;\r\n  padding: 22px;\r\n  box-shadow: 0 2px 8px rgba(23, 43, 77, 0.05);\r\n  font-family:
+  Arial, sans-serif;\r\n  box-sizing: border-box;\r\n  width: 100%;\r\n}\r\n\r\n.kpi-title
+  {\r\n  color: #64748B;\r\n  font-size: 14px;\r\n  font-weight: 500;\r\n  margin-bottom:
+  12px;\r\n}\r\n\r\n.kpi-value {\r\n  color: #17365D;\r\n  font-size: 28px;\r\n  font-weight:
+  700;\r\n  line-height: 1.3;\r\n}\r\n\r\n.kpi-delta {\r\n  display: flex;\r\n  align-items:
+  center;\r\n  gap: 6px;\r\n  margin-top: 12px;\r\n  font-size: 14px;\r\n  font-weight:
+  600;\r\n}\r\n\r\n.kpi-delta.good {\r\n  color: #167653;\r\n}\r\n\r\n.kpi-delta.bad
+  {\r\n  color: #C0392B;\r\n}\r\n\r\n.kpi-delta.neutral {\r\n  color: #64748B;\r\n}\r\n\r\n.kpi-sub
+  {\r\n  color: #8492A6;\r\n  font-size: 12px;\r\n  margin-top: 7px;\r\n}\r\n","extra_form_data":{},"dashboards":[6],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 17509e33-e0fd-45c4-97cf-43b720b21985
+version: 1.0.0
+dataset_uuid: 34844023-1cd9-4da1-b5e8-56d6fce59e7f

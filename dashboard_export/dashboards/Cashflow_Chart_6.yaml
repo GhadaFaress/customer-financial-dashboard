@@ -1,0 +1,499 @@
+dashboard_title: Cashflow Chart
+description: null
+css: ''
+slug: null
+certified_by: ''
+certification_details: ''
+published: false
+uuid: 87f5917a-eae1-4da2-b1ea-cde895132533
+position:
+  CHART-explore-35-1:
+    children: []
+    id: CHART-explore-35-1
+    meta:
+      chartId: 35
+      height: 35
+      sliceName: Net Cash
+      sliceNameOverride: Net Cash Flow
+      uuid: 1ae2974c-1d37-467c-9937-3473b80d2f68
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - ROW-rbDWXHu0N-TzRAt1g6BLp
+    type: CHART
+  CHART-explore-36-1:
+    children: []
+    id: CHART-explore-36-1
+    meta:
+      chartId: 36
+      height: 28
+      sliceName: Closing Balance
+      uuid: e70a9dda-bb43-430f-adeb-dda9e4995c3d
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - ROW-HbcBXpIKUuMdAgCD8G87f
+    type: CHART
+  CHART-explore-38-1:
+    children: []
+    id: CHART-explore-38-1
+    meta:
+      chartId: 38
+      height: 35
+      sliceName: Cash in
+      uuid: 8abf3fe4-ed05-418b-a58d-45a5b63c95f4
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - ROW-rbDWXHu0N-TzRAt1g6BLp
+    type: CHART
+  CHART-explore-39-1:
+    children: []
+    id: CHART-explore-39-1
+    meta:
+      chartId: 39
+      height: 35
+      sliceName: Cash out
+      uuid: 17509e33-e0fd-45c4-97cf-43b720b21985
+      width: 4
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - ROW-rbDWXHu0N-TzRAt1g6BLp
+    type: CHART
+  CHART-explore-40-1:
+    children: []
+    id: CHART-explore-40-1
+    meta:
+      chartId: 40
+      height: 39
+      sliceName: Insight
+      sliceNameOverride: Advice
+      uuid: d0f38e7f-b767-407e-a7ae-efa943bb17ed
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - ROW-alLBgP5DjJrljRW5D0UjP
+    type: CHART
+  CHART-explore-44-1:
+    children: []
+    id: CHART-explore-44-1
+    meta:
+      chartId: 44
+      height: 50
+      sliceName: CashFlow
+      uuid: 95a19d53-f1e7-4fb2-81f3-07122f45d777
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - ROW-XL_YCSH1otYVXrG0TNTfJ
+    type: CHART
+  CHART-explore-45-1:
+    children: []
+    id: CHART-explore-45-1
+    meta:
+      chartId: 45
+      height: 50
+      sliceName: Cashflow
+      uuid: 7c1508bd-d63b-441c-8dc8-eaf5897d2c68
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+    - ROW-UOwmNdsmu3bKS1C3gDzAf
+    type: CHART
+  CHART-explore-47-1:
+    children: []
+    id: CHART-explore-47-1
+    meta:
+      chartId: 47
+      height: 28
+      sliceName: Current Balance
+      uuid: d84e8ad6-8853-47a9-9a7c-c8052badca3f
+      width: 6
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - ROW-HbcBXpIKUuMdAgCD8G87f
+    type: CHART
+  CHART-xQIdpnIArDpfxOlFU1qNa:
+    children: []
+    id: CHART-xQIdpnIArDpfxOlFU1qNa
+    meta:
+      chartId: 42
+      height: 50
+      sliceName: Predicted Flow
+      uuid: 93b99a4f-d653-4af4-8c4a-ecbca0d9e819
+      width: 12
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+    - ROW-zl5yjCOgmVe07MzO_kDfy
+    type: CHART
+  DASHBOARD_VERSION_KEY: v2
+  GRID_ID:
+    children:
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    id: GRID_ID
+    parents:
+    - ROOT_ID
+    type: GRID
+  HEADER_ID:
+    id: HEADER_ID
+    meta:
+      text: Cashflow Chart
+    type: HEADER
+  ROOT_ID:
+    children:
+    - GRID_ID
+    id: ROOT_ID
+    type: ROOT
+  ROW-HbcBXpIKUuMdAgCD8G87f:
+    children:
+    - CHART-explore-47-1
+    - CHART-explore-36-1
+    id: ROW-HbcBXpIKUuMdAgCD8G87f
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    type: ROW
+  ROW-UOwmNdsmu3bKS1C3gDzAf:
+    children:
+    - CHART-explore-45-1
+    id: ROW-UOwmNdsmu3bKS1C3gDzAf
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+    type: ROW
+  ROW-XL_YCSH1otYVXrG0TNTfJ:
+    children:
+    - CHART-explore-44-1
+    id: ROW-XL_YCSH1otYVXrG0TNTfJ
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    type: ROW
+  ROW-alLBgP5DjJrljRW5D0UjP:
+    children:
+    - CHART-explore-40-1
+    id: ROW-alLBgP5DjJrljRW5D0UjP
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    type: ROW
+  ROW-rbDWXHu0N-TzRAt1g6BLp:
+    children:
+    - CHART-explore-38-1
+    - CHART-explore-39-1
+    - CHART-explore-35-1
+    id: ROW-rbDWXHu0N-TzRAt1g6BLp
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    type: ROW
+  ROW-zl5yjCOgmVe07MzO_kDfy:
+    children:
+    - CHART-xQIdpnIArDpfxOlFU1qNa
+    id: ROW-zl5yjCOgmVe07MzO_kDfy
+    meta:
+      background: BACKGROUND_TRANSPARENT
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+    type: ROW
+  TAB-kh_U2pvQkJgzLuYeUTqO4:
+    children:
+    - ROW-UOwmNdsmu3bKS1C3gDzAf
+    - ROW-zl5yjCOgmVe07MzO_kDfy
+    id: TAB-kh_U2pvQkJgzLuYeUTqO4
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Overview & forecast
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    type: TAB
+  TAB-v3B16aoCXoxIB2QajTo8a:
+    children:
+    - ROW-HbcBXpIKUuMdAgCD8G87f
+    - ROW-rbDWXHu0N-TzRAt1g6BLp
+    - ROW-XL_YCSH1otYVXrG0TNTfJ
+    - ROW-alLBgP5DjJrljRW5D0UjP
+    id: TAB-v3B16aoCXoxIB2QajTo8a
+    meta:
+      defaultText: Tab title
+      placeholder: Tab title
+      text: Financial Overview
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    - TABS-w2bvEvEH6O_YMMcTTVqOj
+    type: TAB
+  TABS-w2bvEvEH6O_YMMcTTVqOj:
+    children:
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+    id: TABS-w2bvEvEH6O_YMMcTTVqOj
+    meta: {}
+    parents:
+    - ROOT_ID
+    - GRID_ID
+    type: TABS
+metadata:
+  chart_configuration:
+    '42':
+      id: 42
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 35
+        - 36
+        - 38
+        - 39
+        - 40
+        - 44
+        - 45
+        - 47
+    '44':
+      id: 44
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 35
+        - 36
+        - 38
+        - 39
+        - 40
+        - 42
+        - 45
+        - 47
+    '45':
+      id: 45
+      crossFilters:
+        scope: global
+        chartsInScope:
+        - 35
+        - 36
+        - 38
+        - 39
+        - 40
+        - 42
+        - 44
+        - 47
+  global_chart_configuration:
+    scope:
+      rootPath:
+      - ROOT_ID
+      excluded: []
+    chartsInScope:
+    - 35
+    - 36
+    - 38
+    - 39
+    - 40
+    - 42
+    - 44
+    - 45
+    - 47
+  native_filter_configuration:
+  - cascadeParentIds:
+    - NATIVE_FILTER-1HIMu5_7xYGgDLpJTr6WG
+    controlValues:
+      creatable: true
+      defaultToFirstItem: false
+      enableEmptyFilter: false
+      inverseSelection: false
+      multiSelect: true
+      searchAllOptions: false
+    defaultDataMask:
+      extraFormData: {}
+      filterState: {}
+      ownState: {}
+    description: ''
+    filterType: filter_select
+    id: NATIVE_FILTER-USKXaRz3-Y3tGNy8qgw7G
+    name: Account
+    scope:
+      excluded:
+      - 33
+      - 34
+      rootPath:
+      - ROOT_ID
+    sortMetric: null
+    targets:
+    - column:
+        name: account_id
+      datasetUuid: 34844023-1cd9-4da1-b5e8-56d6fce59e7f
+    type: NATIVE_FILTER
+    chartsInScope:
+    - 35
+    - 36
+    - 38
+    - 39
+    - 40
+    - 42
+    - 44
+    - 45
+    - 47
+    tabsInScope:
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+  - cascadeParentIds: []
+    controlValues:
+      creatable: true
+      defaultToFirstItem: false
+      enableEmptyFilter: false
+      inverseSelection: false
+      multiSelect: true
+      searchAllOptions: false
+    defaultDataMask:
+      extraFormData:
+        filters:
+        - col: customer_id
+          op: IN
+          val:
+          - '100204'
+      filterState:
+        excludeFilterValues: true
+        label: '100204'
+        validateMessage: false
+        validateStatus: false
+        value:
+        - '100204'
+    description: ''
+    filterType: filter_select
+    id: NATIVE_FILTER-1HIMu5_7xYGgDLpJTr6WG
+    name: customer
+    scope:
+      excluded:
+      - 32
+      rootPath:
+      - ROOT_ID
+    sortMetric: null
+    targets:
+    - column:
+        name: customer_id
+      datasetUuid: 34844023-1cd9-4da1-b5e8-56d6fce59e7f
+    type: NATIVE_FILTER
+    chartsInScope:
+    - 35
+    - 36
+    - 38
+    - 39
+    - 40
+    - 42
+    - 44
+    - 45
+    - 47
+    tabsInScope:
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+  - chartsInScope:
+    - 42
+    - 44
+    - 45
+    - 47
+    controlValues:
+      enableEmptyFilter: false
+    defaultDataMask:
+      extraFormData:
+        time_range: 'DATEADD(DATETIME("now"), -6, month) : now'
+      filterState:
+        value: 'DATEADD(DATETIME("now"), -6, month) : now'
+    defaultValueQueriesData: null
+    description: ''
+    filterType: filter_time
+    id: NATIVE_FILTER-j4sV-6-xiMwmSJgkUBHSn
+    name: Period
+    requiredFirst: {}
+    scope:
+      excluded:
+      - 35
+      - 36
+      - 38
+      - 39
+      - 40
+      rootPath:
+      - ROOT_ID
+    tabsInScope:
+    - TAB-kh_U2pvQkJgzLuYeUTqO4
+    - TAB-v3B16aoCXoxIB2QajTo8a
+    type: NATIVE_FILTER
+  chart_customization_config: []
+  color_scheme: ''
+  refresh_frequency: 0
+  expanded_slices: {}
+  label_colors:
+    Cash In: '#2E9E6B'
+    Cash In__yhat: '#2E9E6B'
+    Cash In__yhat_upper: '#2E9E6B'
+    Cash In__yhat_lower: '#2E9E6B'
+    Cash Out: '#C0392B'
+    Cash Out__yhat: '#C0392B'
+    Cash Out__yhat_upper: '#C0392B'
+    Cash Out__yhat_lower: '#C0392B'
+    Net: '#1F77B4'
+    Net__yhat: '#1F77B4'
+    Net__yhat_upper: '#1F77B4'
+    Net__yhat_lower: '#1F77B4'
+  timed_refresh_immune_slices: []
+  cross_filters_enabled: true
+  default_filters: '{}'
+  filter_bar_orientation: VERTICAL
+  show_chart_timestamps: false
+  shared_label_colors:
+  - Cash In
+  - Cash Out
+  - Net
+  map_label_colors:
+    from here: '#1FA8C9'
+  color_scheme_domain: []
+theme_uuid: null
+version: 1.0.0
