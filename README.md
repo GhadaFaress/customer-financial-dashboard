@@ -37,8 +37,8 @@ flowchart LR
 - `daily_balances`: daily in / out / balance, with month-to-date labels
 - `monthly_accounts`: monthly in / out and closing balance
 ## Dashboard
-<img width="732" height="398" alt="image" src="https://github.com/user-attachments/assets/d2e9ad8b-b3eb-428f-ab77-074d27fbef33" />
-<img width="722" height="290" alt="image" src="https://github.com/user-attachments/assets/dc569d38-91f3-4aa8-a4a6-2760bea042a3" />
+<img width="901" height="397" alt="image" src="https://github.com/user-attachments/assets/a0fd66b4-1f11-487d-8ca7-296e2a881ce0" />
+<img width="899" height="288" alt="image" src="https://github.com/user-attachments/assets/e3127f75-715d-40a6-b0b4-f54e81b64440" />
 <img width="887" height="195" alt="image" src="https://github.com/user-attachments/assets/9004aba8-d225-4d78-b9b1-195708af17a5" />
 
 
