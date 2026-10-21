@@ -1,0 +1,66 @@
+version: 2
+
+models:
+
+  - name: dim_customer
+    columns:
+      - name: customer_key
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [unique, not_null]
+
+  - name: dim_account
+    columns:
+      - name: account_key
+        tests: [unique, not_null]
+      - name: customer_key           # NULL on internal accounts
+        tests:
+          - relationships:
+              to: ref('dim_customer')
+              field: customer_key
+      - name: is_internal
+        tests: [not_null]
+
+  - name: dim_date
+    columns:
+      - name: date_key
+        tests: [unique, not_null]
+
+  - name: fact_stmt_entry
+    columns:
+      - name: stmt_entry_key
+        tests: [unique, not_null]
+      - name: account_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: value_date_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: direction
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['IN', 'OUT']
+
+  - name: fact_account_balance
+    columns:
+      - name: account_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_account')
+              field: account_key
+      - name: date_key
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_date')
+              field: date_key
+      - name: balance_lcy
+        tests: [not_null]

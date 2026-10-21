@@ -1,0 +1,94 @@
+version: 2
+
+models:
+
+  # ---------- hubs: one row per business key ----------
+  - name: hub_customer
+    columns:
+      - name: hk_customer
+        tests: [unique, not_null]
+      - name: customer_id
+        tests: [unique, not_null]
+
+  - name: hub_account
+    columns:
+      - name: hk_account
+        tests: [unique, not_null]
+      - name: account_number
+        tests: [unique, not_null]
+
+  # ---------- links: keys must point to real hubs ----------
+  - name: link_customer_account
+    columns:
+      - name: hk_customer_account
+        tests: [unique, not_null]
+      - name: hk_customer
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: hk_customer
+      - name: hk_account
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: hk_account
+
+  - name: link_stmt_entry
+    columns:
+      - name: hk_stmt_entry
+        tests: [unique, not_null]
+      - name: hk_account
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: hk_account
+      - name: hk_customer            # NULL on internal rows; relationships skips NULLs
+        tests:
+          - relationships:
+              to: ref('hub_customer')
+              field: hk_customer
+      - name: amount_lcy
+        tests: [not_null]
+
+  # ---------- satellites: must hang off a real parent ----------
+  - name: sat_customer
+    columns:
+      - name: hk_customer
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_customer')
+              field: hk_customer
+      - name: hd_customer
+        tests: [not_null]
+
+  - name: sat_account_details
+    columns:
+      - name: hk_account
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: hk_account
+
+  - name: sat_account_balance
+    columns:
+      - name: hk_account
+        tests:
+          - not_null
+          - relationships:
+              to: ref('hub_account')
+              field: hk_account
+
+  - name: sat_stmt_entry
+    columns:
+      - name: hk_stmt_entry
+        tests:
+          - unique                    # entries never change: one row each
+          - not_null
+          - relationships:
+              to: ref('link_stmt_entry')
+              field: hk_stmt_entry
