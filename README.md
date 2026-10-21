@@ -36,5 +36,11 @@ flowchart LR
 **Reporting**
 - `daily_balances`: daily in / out / balance, with month-to-date labels
 - `monthly_accounts`: monthly in / out and closing balance
+## Dashboard
+<img width="209" height="265" alt="Screenshot 2026-10-21 131206" src="https://github.com/user-attachments/assets/ff91b58a-45d1-4a87-bcff-d2536bfc9e54" />
+
+
 
 ERDs: [silver](docs/silver_raw_vault.md) · [gold](docs/gold_star_schema.md)
+
+
